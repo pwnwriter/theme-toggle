@@ -1,0 +1,7 @@
+[package]
+name = "nnd"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tabled = { version = "0.17.0", features = ["ansi"] }
