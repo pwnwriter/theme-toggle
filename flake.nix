@@ -44,7 +44,7 @@
       formatter = forAllSystems (pkgs: pkgs.nixfmt-rfc-style);
 
       packages = forAllSystems (pkgs: {
-        nnd =
+        xmx =
           with pkgs;
           let
             fs = lib.fileset;
@@ -94,14 +94,14 @@
 
           };
 
-        default = self.packages.${pkgs.system}.nnd;
+        default = self.packages.${pkgs.system}.xmx;
 
       });
 
       apps = forAllSystems (pkgs: {
         default = {
           type = "app";
-          program = "${self.packages.${pkgs.system}.nnd}/bin/nnd";
+          program = "${self.packages.${pkgs.system}.xmx}/bin/xmx";
         };
       });
     };
