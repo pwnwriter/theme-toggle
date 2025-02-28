@@ -1,6 +1,10 @@
 [package]
-name = "xmx"
+name = "theme-toggle"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+core-foundation = "0.10.0"
+objc = "0.2.7"
+anyhow = "1.0.96"
+

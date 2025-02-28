@@ -30,9 +30,17 @@
           name = "dev-shell";
           packages =
             (with pkgs; [
-              cmake
-            ])
+             cmake
+             llvmPackages.libclang
+             llvmPackages.libcxxClang
+             clang
+            ]
+
+            )
             ++ (pkgs.lib.optional pkgs.stdenv.isDarwin (darwinDeps pkgs));
+
+          LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
+          BINDGEN_EXTRA_CLANG_ARGS = "-isystem ${pkgs.llvmPackages.libclang.lib}/lib/clang/${pkgs.lib.getVersion pkgs.clang}/include";
 
           shellHook = ''
             export PATH="$PATH:$(pwd)/target/debug"
@@ -44,7 +52,7 @@
       formatter = forAllSystems (pkgs: pkgs.nixfmt-rfc-style);
 
       packages = forAllSystems (pkgs: {
-        xmx =
+        theme-toggle =
           with pkgs;
           let
             fs = lib.fileset;
@@ -94,14 +102,14 @@
 
           };
 
-        default = self.packages.${pkgs.system}.xmx;
+        default = self.packages.${pkgs.system}.theme-toggle;
 
       });
 
       apps = forAllSystems (pkgs: {
         default = {
           type = "app";
-          program = "${self.packages.${pkgs.system}.xmx}/bin/xmx";
+          program = "${self.packages.${pkgs.system}.theme-toggle}/bin/theme-toggle";
         };
       });
     };
